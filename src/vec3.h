@@ -99,6 +99,7 @@ inline vec3 cross(const vec3 &v1, const vec3 &v2) {
                  (v1.e[0]*v2.e[1] - v1.e[1]*v2.e[0]));
 }
 
+// Supports vec3 += vec3
 inline vec3& vec3::operator+=(const vec3 &v) {
     e[0] += v.e[0];
     e[1] += v.e[1];
@@ -106,6 +107,7 @@ inline vec3& vec3::operator+=(const vec3 &v) {
     return *this;
 }
 
+// Supports vec3 *= vec3
 inline vec3& vec3::operator*=(const vec3 &v) {
     e[0] *= v.e[0];
     e[1] *= v.e[1];
@@ -113,6 +115,7 @@ inline vec3& vec3::operator*=(const vec3 &v) {
     return *this;
 }
 
+// Supports vec3 /= vec3
 inline vec3& vec3::operator/=(const vec3 &v) {
     e[0] /= v.e[0];
     e[1] /= v.e[1];
@@ -120,6 +123,7 @@ inline vec3& vec3::operator/=(const vec3 &v) {
     return *this;
 }
 
+// Supports vec3 -= vec3
 inline vec3& vec3::operator-=(const vec3 &v) {
     e[0] -= v.e[0];
     e[1] -= v.e[1];
@@ -127,6 +131,7 @@ inline vec3& vec3::operator-=(const vec3 &v) {
     return *this;
 }
 
+// Supports vec3 *= float
 inline vec3& vec3::operator*=(const float t) {
     e[0] *= t;
     e[1] *= t;
@@ -134,6 +139,10 @@ inline vec3& vec3::operator*=(const float t) {
     return *this;
 }
 
+// Supports vec3 /= float
+// Why do we multiply by inverse of t rather than just dividing by t?
+// -> Division takes longer than multiplication since it requires iterative subtraction
+// https://stackoverflow.com/questions/4125033/floating-point-division-vs-floating-point-multiplication
 inline vec3& vec3::operator/=(const float t) {
     float k = 1.0/t;
 
@@ -143,6 +152,7 @@ inline vec3& vec3::operator/=(const float t) {
     return *this;
 }
 
+// Returns a unit vector of v
 inline vec3 unit_vector(vec3 v) {
     return v / v.length();
 }
